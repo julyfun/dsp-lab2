@@ -383,7 +383,10 @@ For $N = 10000$, numpy's _FFT_ function still costs less than $0.001s$, while ou
 == Signal operations in @1 <py1>
 
 #import "@preview/codelst:2.0.0": sourcecode
-#show raw.where(block: true): it => { sourcecode(it) }
+#show raw.where(block: true): it => {
+  set text(size: 10pt)
+  sourcecode(it)
+}
 
 ```python
 import numpy as np
