@@ -36,7 +36,7 @@
 
 #outline(indent: 1.5em)
 
-= Signal operations
+= Signal operations <1>
 
 Given the parameters $A = 3, B = 4, D = 8$, the three gate functions are defined
 by:
@@ -128,7 +128,7 @@ $
 )
 = Continuous-Time Fourier Transform properties
 
-== Creation of Continuous-Time Fourier Transform (_CTFT_) function
+== Creation of Continuous-Time Fourier Transform (_CTFT_) function <3.a>
 
 The definition of _CTFT_ is:
 
@@ -140,13 +140,13 @@ The code is in @py3.a.
 
 In order to improve the approximation accuracy, we can increase the number of samples (i.e. `SAMPLE_N` parameter).
 
-== Comparison of $g$ and shifted $g$
+== Comparison of $g$ and shifted $g$ <3.b>
 
 We can get $g_2 = g(t - D / 2)$ by applying time shifting on $g$. To get $g_2$ in the code, we use a function called `func_tranform` to get the shifted function of $g$. The figure showing both functions is:
 
 #figure(image("image.png", width: 80%), caption: [$g "and" g_2$ in the same plot]) 
 
-== Plot of _CTFT_ of $g$ and $g_2$ <1.c>
+== Plot of _CTFT_ of $g$ and $g_2$ <3.c>
 
 Using the function `CTFT()` function realized in _1.a_, we can calculate the _CTFT_ of $g_2$ and $g$ respectively. 
 
@@ -160,15 +160,15 @@ By observing the images of module, phase, real part and imaginary part of the tw
 #figure(image("2-1-3.png", width: 80%), caption: [Real part of $g$ and $g_2$])
 #figure(image("2-1-4.png", width: 80%), caption: [Imaginary part of $g$ and $g_2$])
 
-== Modulation
+== Modulation <3.d>
 
 In the code, we can generate $y(t) = g(t) times cos(4 pi t)$ from $g(t)$. The figure below shows the comparison of $g(t)$ and $y(t)$ over $t = [-15, 15]$:
 
 #figure(image("2-1-5.png", width: 80%), caption: [$y$ and $g$ in the same plot])
 
-== Modulation properties of Fourier Tranform
+== Modulation properties of Fourier Tranform <3.e>
 
-To get the module and phase of $y(t)$ and $g(t)$, we can calculte their _CTFT_ like in @1.c.
+To get the module and phase of $y(t)$ and $g(t)$, we can calculte their _CTFT_ like in @3.c.
 
 The modulation property of _CTFT_ gives:
 
@@ -181,7 +181,7 @@ Note the peak value of module of $y$ is half this value of $g$.
 
 #figure(image("2-1-7.png", width: 80%), caption: [Phase of $y$ and $g$])
 
-== Verification of Parseval's formula
+== Verification of Parseval's formula <3.f>
 
 In the code we can get the energy in both time and frequency domain, which are $99.95$ and $99.38$. There is a slight difference, and we can consider the two energies to be the same.
 The difference comes from the error in the integral calculation and is very small (the error can be reduced by increasing the number of integral samples).
@@ -202,7 +202,7 @@ $
 
 = Discrete-Time Fourier Transform properties
 
-== Creation of the Discrete-Time Fourier Transform (_DTFT_) function
+== Creation of the Discrete-Time Fourier Transform (_DTFT_) function <4.a>
 
 The code in appendix implements `DTFT(nT, xn, w)` function, using the following formula:
 
@@ -212,7 +212,7 @@ To avoid infinite calculation, we can set a start time and end time for sampling
 function, as long as it covers the whole signal.
 The code is in @py4.a.
 
-== Plots of _DTFT_ when $T = D / 80$ and $T = D / 40$
+== Plots of _DTFT_ when $T = D / 80$ and $T = D / 40$ <4.b>
 
 Using the function implemented in _3.a_, we rendered the images of $G_(w, 1)$ and $G_(w, 2)$ in a Nyquist interval,
 
@@ -223,7 +223,7 @@ Using the function implemented in _3.a_, we rendered the images of $G_(w, 1)$ an
 #figure(image("2-2-b-5.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
 #figure(image("2-2-b-6.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
 
-== Deduciton of the theoretical _CTFT_ function of $g$
+== Deduciton of the theoretical _CTFT_ function of $g$ <4.c>
  
 The theoretical _CTFT_ function of $g$ is:
 
@@ -246,7 +246,7 @@ For $G_(w, 1)$, the peak value at $omega = 0$ is ten times the _CTFT_ of $g$. Th
 because the sampling frequency is $f_s = 10$. And for $G_(w, 2)$ it is five times,
 as the sampling frequency is $f_s = 5$.
 
-== Inverse _DTFT_
+== Inverse _DTFT_ <4.d>
 
 We can inverse _DTFT_ using the formula:
 
@@ -259,7 +259,7 @@ We get:
 
 This two images shows that the inverse _DTFT_ perfectly matches the discret sampling function.
 
-== Adjusted Parseval's formula
+== Adjusted Parseval's formula <4.e>
 
 The former Parseval's formula is no longer validated for _DTFT_. If we calculate
 the energy of the the original function and the _DTFT_ function (in one Nyquist interval to avoid infinite energy), we can get $31.99 "and" 3199.99$, the latter one is 100 times the former one. That is due to the sampling frequency
@@ -272,7 +272,7 @@ $ integral_(-oo)^(+oo) |x(t)|^2 dif t = 1 / (2pi f_s ^ 2) integral_(-w_s / 2)^(+
 
 = Windowing effects of DTFT
 
-== _DTFT_ of $g$ with gate sampling function
+== _DTFT_ of $g$ with gate sampling function <5.a>
 
 We can adopt $2 / N$ as factor to scale magnitudes of _DTFT_ function. The figure is:
 
@@ -294,7 +294,7 @@ tablem[
 ]
 )
 
-== _DTFT_ of $g$ with Hamming function
+== _DTFT_ of $g$ with Hamming function <5.b>
 
 Using Hamming function, the factor should be $2 / (N a_0)$, becuase the area of Hamming function is $integral_0^T a_0 - (1 - a_0) cos((2 pi t) / T) = a_0T$, where
 $a_0 = 0.53836$. The figure is:
@@ -317,13 +317,13 @@ The sidelobes after applying Hamming function are much lower than the original o
 
 = DFT and FFT
 
-== Figure of the samples
+== Figure of the samples <6.a>
 
 The figure of $y$ is:
 
 #figure(image("4-a.png", width: 80%), caption: [Figure of $y$])
 
-== Module and phase of $y$'s _DTFT_
+== Module and phase of $y$'s _DTFT_ <6.b>
 
 We can use the `DTFT()` function defined in the previous questions. The modulus and phase of _DTFT_ of $y$ in a Nyquist interval are:
 
@@ -332,7 +332,7 @@ We can use the `DTFT()` function defined in the previous questions. The modulus 
 
 The function is continuous in the frequency domain.
 
-== N-point _DFT_ of $y$
+== N-point _DFT_ of $y$ <6.c>
 
 The _DFT_ algorithm discretizes _DTFT_ samples in the frequency domain. The standard form is, for $k = 0, 1, ... N - 1, w_k = (2 pi k) / N$,
 
@@ -347,7 +347,7 @@ Using the new written `dft()` function, we can plot the two functions the same p
 
 At the sampling points of _DFT_, the function values of the two remain consistant.
 
-== Inverse _DFT_
+== Inverse _DFT_ <6.d>
 
 The formula of inverse _DTFT_ is:
 
@@ -359,7 +359,7 @@ The following figure shows that the inverse _DTFT_ completely matches the origin
 
 #figure(image("4-d-1.png", width: 80%), caption: [Original $y$ and its inverse _DTFT_])
 
-== Zero-padding
+== Zero-padding <6.e>
 
 Using `numpy.pad()` function, we can apply zero-padding to $y[n]$.
 To get the _FFT_ of $y$, we can use `numpy.fft.fft()` function. The modulus and phase of _FFT_ of $y$ are:
@@ -369,7 +369,7 @@ To get the _FFT_ of $y$, we can use `numpy.fft.fft()` function. The modulus and 
 
 It can be seen that the _FFT_ of $y$ is consistent with the _DTFT_ of $y$ on the sampling points.
 
-== Computational time of _DFT_ and _FFT_
+== Computational time of _DFT_ and _FFT_ <6.f>
 
 The time complexity of _DFT_ for a sequence of length $N$ is $O(N^2)$, while the time complexity of _FFT_ is $O(N log N)$. There is also a constant difference because `numpy.fft.fft()` is a built-in function and is implemented in C. On the contrary, the `dft()` function is implemented in Python and is slower.
 
@@ -380,7 +380,7 @@ For $N = 10000$, numpy's _FFT_ function still costs less than $0.001s$, while ou
 
 = Appendix Code (Python)
 
-== Signal operations <py1>
+== Signal operations in @1 <py1>
 
 #import "@preview/codelst:2.0.0": sourcecode
 #show raw.where(block: true): it => { sourcecode(it) }
@@ -429,7 +429,7 @@ plt.show()
 
 == Continuous-Time Fourier Transform properties
 
-=== Code for 3.a and 3.b <py3.a>
+=== Code for @3.a and @3.b <py3.a>
 
 ```py
 import numpy as np
@@ -476,7 +476,7 @@ plt.legend()
 fig.show()
 ```
 
-=== Code for 3.c <py3.c>
+=== Code for @3.c <py3.c>
 
 ```py
 maxw = 10 * np.pi
@@ -498,7 +498,7 @@ for i in range(4):
     fig.show()
 ```
 
-=== Code for 3.d <py3.d>
+=== Code for @3.d <py3.d>
 
 ```py
 def y_func(t):
@@ -515,7 +515,7 @@ plt.legend() # 图例...
 fig.show()
 ```
 
-=== Code for 3.e <py3.e>
+=== Code for @3.e <py3.e>
 
 ```py
 ctft_of_g = CTFT(g_values, t_values, w_values)
@@ -533,7 +533,7 @@ for prop in range(2):
     fig.show()
 ```
 
-=== Code for 3.f <py3.f>
+=== Code for @3.f <py3.f>
 
 ```py
 def calculate_energy(ys, xs):
@@ -546,7 +546,7 @@ print(calculate_energy(ctft_of_y, w_values) / 2 / np.pi)
 
 == Discrete-Time Fourier Transform properties
 
-=== Code for 4.a and 4.b <py4.a>
+=== Code for @4.a and @4.b <py4.a>
 
 ```py
 import numpy as np
@@ -621,7 +621,7 @@ for opt in range(3):
 
 ```
 
-=== Code for 4.c <py4.c>
+=== Code for @4.c <py4.c>
 
 ```py
 def CTFT(x, t, w):
@@ -686,7 +686,7 @@ for i in range(2):
     fig.show()
 ```
 
-=== Code for 4.d <py4.d>
+=== Code for @4.d <py4.d>
 
 ```py
 def inverse_dtft(maxn, t_sample, dtft_w_vec, dtft_x_vec):
@@ -724,7 +724,7 @@ plt.legend()
 fig.show()
 ```
 
-=== Code for 4.e <py4.e>
+=== Code for @4.e <py4.e>
 
 ```py
 def calculate_energy(ys, xs):
@@ -740,7 +740,7 @@ print(g_energy, g1_dtft_energy)
 
 == Windowing eﬀects of DTFT
 
-=== Code for 5.a <py5.a>
+=== Code for @5.a <py5.a>
 
 ```py
 import numpy as np
@@ -818,7 +818,7 @@ for i, length in enumerate(ls):
     fig.show()
 ```
 
-=== Code for 5.b <py5.b>
+=== Code for @5.b <py5.b>
 
 ```py
 A0 = 0.53836
@@ -873,7 +873,7 @@ for i, length in enumerate(ls):
 
 == DFT and FFT
 
-=== Code for 6.a <py6.a>
+=== Code for @6.a <py6.a>
 
 ```py
 import numpy as np
@@ -889,7 +889,7 @@ plt.legend()
 fig.show()
 ```
 
-=== Code for 6.b <py6.b>
+=== Code for @6.b <py6.b>
 
 ```py
 NUM_W = 5000
@@ -934,7 +934,7 @@ def plot_mod_phase(x_vec, y_vec, x_name, y_name):
 plot_mod_phase(w_vec, dtft, 'w', 'Y')
 ```
 
-=== Code for 6.c <py6.c>
+=== Code for @6.c <py6.c>
 
 ```py
 def dft(ys):
@@ -960,7 +960,7 @@ for part in range(2):
     fig.show()
 ```
 
-=== Code for 6.d <py6.d>
+=== Code for @6.d <py6.d>
 
 ```py
 def inverse_dtft(maxn, t_sample, dtft_w_vec, dtft_x_vec):
@@ -992,7 +992,7 @@ plt.axhline(y=0, color='k')
 fig.show()
 ```
 
-=== Code for 6.e <py6.e>
+=== Code for @6.e <py6.e>
 
 ```py
 pad_x = np.arange(16)
@@ -1011,7 +1011,7 @@ for part in range(2):
     fig.show()
 ```
 
-=== Code for 6.f - Time statistics <py6.f>
+=== Code for @6.f - Time statistics <py6.f>
 
 ```py
 import numpy as np
@@ -1039,7 +1039,7 @@ for L in L_values:
 print(fft_times, dft_times)
 ```
 
-=== Code for 6.f - Plot of time statistics
+=== Code for @6.f - Plot of time statistics
 
 ```py
 # Plot the computational time curve
