@@ -3,7 +3,7 @@
 #set figure(numbering: "1")
 
 // 这是注释
-#figure(image("sjtu.png", width: 50%), numbering: none) \ \ \
+#figure(image("pic/sjtu.png", width: 50%), numbering: none) \ \ \
 
 #align(center, text(17pt)[
   *Laboratory Report of Digital Signal Processing* \ \
@@ -57,7 +57,7 @@ $
 
 We plot the $x$ function in the figure below:
 
-#figure(image("1.jpg", width: 50%))
+#figure(image("pic/1.jpg", width: 50%))
 
 It can be seen that the images of the three gate functions do not overlap.
 
@@ -144,7 +144,7 @@ In order to improve the approximation accuracy, we can increase the number of sa
 
 We can get $g_2 = g(t - D / 2)$ by applying time shifting on $g$. To get $g_2$ in the code, we use a function called `func_tranform` to get the shifted function of $g$. The figure showing both functions is:
 
-#figure(image("image.png", width: 80%), caption: [$g "and" g_2$ in the same plot]) 
+#figure(image("pic/image.png", width: 80%), caption: [$g "and" g_2$ in the same plot]) 
 
 == Plot of _CTFT_ of $g$ and $g_2$ <3.c>
 
@@ -155,16 +155,16 @@ By observing the images of module, phase, real part and imaginary part of the tw
 + The module remains unchanged.
 + THe phase changes linearly with $omega$, and the distribution of real and imaginary parts changes.
 
-#figure(image("2-1-1.png", width: 80%), caption: [Module of $g$ and $g_2$])
-#figure(image("2-1-2.png", width: 80%), caption: [Phase of $g$ and $g_2$])
-#figure(image("2-1-3.png", width: 80%), caption: [Real part of $g$ and $g_2$])
-#figure(image("2-1-4.png", width: 80%), caption: [Imaginary part of $g$ and $g_2$])
+#figure(image("pic/2-1-1.png", width: 80%), caption: [Module of $g$ and $g_2$])
+#figure(image("pic/2-1-2.png", width: 80%), caption: [Phase of $g$ and $g_2$])
+#figure(image("pic/2-1-3.png", width: 80%), caption: [Real part of $g$ and $g_2$])
+#figure(image("pic/2-1-4.png", width: 80%), caption: [Imaginary part of $g$ and $g_2$])
 
 == Modulation <3.d>
 
 In the code, we can generate $y(t) = g(t) times cos(4 pi t)$ from $g(t)$. The figure below shows the comparison of $g(t)$ and $y(t)$ over $t = [-15, 15]$:
 
-#figure(image("2-1-5.png", width: 80%), caption: [$y$ and $g$ in the same plot])
+#figure(image("pic/2-1-5.png", width: 80%), caption: [$y$ and $g$ in the same plot])
 
 == Modulation properties of Fourier Tranform <3.e>
 
@@ -177,9 +177,9 @@ $ G_T_1(t) cos(omega_0 t) <==>^(F.T.) 1 / 2 X[j(omega - omega_0)] +  1/ 2 X[j(om
 This property can be verified from the figures below, as the module and phase of $g$ is shifted to $omega_0 = 4 pi$ and $-omega_0 = -4pi$ in the frequency domain.
 Note the peak value of module of $y$ is half this value of $g$.
 
-#figure(image("2-1-6.png", width: 80%), caption: [Module of $y$ and $g$])
+#figure(image("pic/2-1-6.png", width: 80%), caption: [Module of $y$ and $g$])
 
-#figure(image("2-1-7.png", width: 80%), caption: [Phase of $y$ and $g$])
+#figure(image("pic/2-1-7.png", width: 80%), caption: [Phase of $y$ and $g$])
 
 == Verification of Parseval's formula <3.f>
 
@@ -216,12 +216,12 @@ The code is in @py4.a.
 
 Using the function implemented in _3.a_, we rendered the images of $G_(w, 1)$ and $G_(w, 2)$ in a Nyquist interval,
 
-#figure(image("2-2-b-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
-#figure(image("2-2-b-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
-#figure(image("2-2-b-3.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
-#figure(image("2-2-b-4.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
-#figure(image("2-2-b-5.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
-#figure(image("2-2-b-6.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
+#figure(image("pic/2-2-b-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
+#figure(image("pic/2-2-b-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
+#figure(image("pic/2-2-b-3.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
+#figure(image("pic/2-2-b-4.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
+#figure(image("pic/2-2-b-5.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
+#figure(image("pic/2-2-b-6.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
 
 == Deduciton of the theoretical _CTFT_ function of $g$ <4.c>
  
@@ -237,10 +237,10 @@ $
 We can plot them in the same figure:
 
 
-#figure(image("2-2-c-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and _CTFT_ of $g$])
-#figure(image("2-2-c-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and _CTFT_ of $g$])
-#figure(image("2-2-c-3.png", width: 80%), caption: [Module of $G_(w, 2)$ and _CTFT_ of $g$])
-#figure(image("2-2-c-4.png", width: 80%), caption: [Phase of $G_(w, 2)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-3.png", width: 80%), caption: [Module of $G_(w, 2)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-4.png", width: 80%), caption: [Phase of $G_(w, 2)$ and _CTFT_ of $g$])
 
 For $G_(w, 1)$, the peak value at $omega = 0$ is ten times the _CTFT_ of $g$. That's
 because the sampling frequency is $f_s = 10$. And for $G_(w, 2)$ it is five times,
@@ -254,8 +254,8 @@ $ x[n T] = 1 / (w_s) integral_(-w_s / 2)^(+w_s / 2) X[e^(j omega)] e^(j omega n)
 
 We get:
 
-#figure(image("2-2-d-1.png", width: 80%), caption: [Figure of the discrete $g_1$ and the inverse of $G_(w, 1)$ ])
-#figure(image("2-2-d-2.png", width: 80%), caption: [Figure of the discrete $g_2$ and the inverse of $G_(w, 2)$ ])
+#figure(image("pic/2-2-d-1.png", width: 80%), caption: [Figure of the discrete $g_1$ and the inverse of $G_(w, 1)$ ])
+#figure(image("pic/2-2-d-2.png", width: 80%), caption: [Figure of the discrete $g_2$ and the inverse of $G_(w, 2)$ ])
 
 This two images shows that the inverse _DTFT_ perfectly matches the discret sampling function.
 
@@ -276,9 +276,9 @@ $ integral_(-oo)^(+oo) |x(t)|^2 dif t = 1 / (2pi f_s ^ 2) integral_(-w_s / 2)^(+
 
 We can adopt $2 / N$ as factor to scale magnitudes of _DTFT_ function. The figure is:
 
-#figure(image("2-3-a-1.png", width: 80%), caption: [Figure and peak values when $L = 50$])
-#figure(image("2-3-a-2.png", width: 80%), caption: [Figure and peak values when $L = 200$])
-#figure(image("2-3-a-3.png", width: 80%), caption: [Figure and peak values when $L = 1000$])
+#figure(image("pic/2-3-a-1.png", width: 80%), caption: [Figure and peak values when $L = 50$])
+#figure(image("pic/2-3-a-2.png", width: 80%), caption: [Figure and peak values when $L = 200$])
+#figure(image("pic/2-3-a-3.png", width: 80%), caption: [Figure and peak values when $L = 1000$])
 
 Larger the $L$, the more accurate we can find the right amplitude and frequency.
 
@@ -299,9 +299,9 @@ tablem[
 Using Hamming function, the factor should be $2 / (N a_0)$, becuase the area of Hamming function is $integral_0^T a_0 - (1 - a_0) cos((2 pi t) / T) = a_0T$, where
 $a_0 = 0.53836$. The figure is:
 
-#figure(image("2-3-b-1.png", width: 80%), caption: [Figure and peak values when $L = 50$])
-#figure(image("2-3-b-2.png", width: 80%), caption: [Figure and peak values when $L = 200$])
-#figure(image("2-3-b-3.png", width: 80%), caption: [Figure and peak values when $L = 1000$])
+#figure(image("pic/2-3-b-1.png", width: 80%), caption: [Figure and peak values when $L = 50$])
+#figure(image("pic/2-3-b-2.png", width: 80%), caption: [Figure and peak values when $L = 200$])
+#figure(image("pic/2-3-b-3.png", width: 80%), caption: [Figure and peak values when $L = 1000$])
 
 #figure(
 tablem[
@@ -321,14 +321,14 @@ The sidelobes after applying Hamming function are much lower than the original o
 
 The figure of $y$ is:
 
-#figure(image("4-a.png", width: 80%), caption: [Figure of $y$])
+#figure(image("pic/4-a.png", width: 80%), caption: [Figure of $y$])
 
 == Module and phase of $y$'s _DTFT_ <6.b>
 
 We can use the `DTFT()` function defined in the previous questions. The modulus and phase of _DTFT_ of $y$ in a Nyquist interval are:
 
-#figure(image("4-b-1.png", width: 80%), caption: [Module of _DTFT_ $y$])
-#figure(image("4-b-2.png", width: 80%), caption: [Phase of _DTFT_ of $y$])
+#figure(image("pic/4-b-1.png", width: 80%), caption: [Module of _DTFT_ $y$])
+#figure(image("pic/4-b-2.png", width: 80%), caption: [Phase of _DTFT_ of $y$])
 
 The function is continuous in the frequency domain.
 
@@ -342,8 +342,8 @@ $
 
 Using the new written `dft()` function, we can plot the two functions the same plot:
 
-#figure(image("4-c-1.png", width: 80%), caption: [Module of $y$'s _DFT_ (blue) and _DTFT_ (red)])
-#figure(image("4-c-2.png", width: 80%), caption: [Phase of $y$'s _DFT_ (blue) and _DTFT_ (red)])
+#figure(image("pic/4-c-1.png", width: 80%), caption: [Module of $y$'s _DFT_ (blue) and _DTFT_ (red)])
+#figure(image("pic/4-c-2.png", width: 80%), caption: [Phase of $y$'s _DFT_ (blue) and _DTFT_ (red)])
 
 At the sampling points of _DFT_, the function values of the two remain consistant.
 
@@ -357,15 +357,15 @@ $
 
 The following figure shows that the inverse _DTFT_ completely matches the original function:
 
-#figure(image("4-d-1.png", width: 80%), caption: [Original $y$ and its inverse _DTFT_])
+#figure(image("pic/4-d-1.png", width: 80%), caption: [Original $y$ and its inverse _DTFT_])
 
 == Zero-padding <6.e>
 
 Using `numpy.pad()` function, we can apply zero-padding to $y[n]$.
 To get the _FFT_ of $y$, we can use `numpy.fft.fft()` function. The modulus and phase of _FFT_ of $y$ are:
 
-#figure(image("4-e-1.png", width: 80%), caption: [Module of _FFT_ (N = 16) and _DTFT_ of $y$])
-#figure(image("4-e-2.png", width: 80%), caption: [Phase of _FFT_ (N = 16) and _DTFT_ of $y$]) 
+#figure(image("pic/4-e-1.png", width: 80%), caption: [Module of _FFT_ (N = 16) and _DTFT_ of $y$])
+#figure(image("pic/4-e-2.png", width: 80%), caption: [Phase of _FFT_ (N = 16) and _DTFT_ of $y$]) 
 
 It can be seen that the _FFT_ of $y$ is consistent with the _DTFT_ of $y$ on the sampling points.
 
@@ -373,8 +373,8 @@ It can be seen that the _FFT_ of $y$ is consistent with the _DTFT_ of $y$ on the
 
 The time complexity of _DFT_ for a sequence of length $N$ is $O(N^2)$, while the time complexity of _FFT_ is $O(N log N)$. There is also a constant difference because `numpy.fft.fft()` is a built-in function and is implemented in C. On the contrary, the `dft()` function is implemented in Python and is slower.
 
-#figure(image("4-f-1.png", width: 80%), caption: [Computational time of _DFT_ and _FFT_])
-#figure(image("4-f-2.png", width: 80%), caption: [Computational time (log) of _DFT_ and _FFT_])
+#figure(image("pic/4-f-1.png", width: 80%), caption: [Computational time of _DFT_ and _FFT_])
+#figure(image("pic/4-f-2.png", width: 80%), caption: [Computational time (log) of _DFT_ and _FFT_])
 
 For $N = 10000$, numpy's _FFT_ function still costs less than $0.001s$, while our _DFT_ has cost more than $10s$. The difference is even more significant when $N$ is larger.
 
