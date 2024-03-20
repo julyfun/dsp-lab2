@@ -34,6 +34,8 @@
   strong(it)
 }
 
+_Source Code_: #link("https://github.com/julyfun/dsp-lab2")
+
 #outline(indent: 1.5em)
 
 = Signal operations <1>
@@ -68,8 +70,8 @@ See @py1 for the code.
 
 = Aliasing phenomenon in sampling process
 
-Let the frequencies corresponding to the two peaks in the image be $f_(a 1), f_(a 2)$ and
-the function values be $X_1, X_2$. The sampling frequency is $f_s = 100"Hz"$.
+Let the frequencies corresponding to the two peaks in the image be $f_(a 1) = 14, f_(a 2) = 3$ and
+the function values be $X_1 = 2, X_2 = 1$. The sampling frequency is $f_s = 100"Hz"$.
 According to the sampling theorem, we have:
 
 $
@@ -101,19 +103,42 @@ $
   x(t) &= integral_(-oo)^(+oo) X(j f) e^(j 2 pi f t) dif f
 $
 
-In this form, the cosine wave with amplitude $1$ and the following sum of two
-impulse function form a Fourier Transform pair:
+To sample the function from $0s$ to $5s$ is equivalent to 
+
+In this form, the sine wave with amplitude $1$ and the following sum of two
+impulse function form a Fourier Transform pair, and we take modulo in this formula:
 
 $
-  cos(2 pi f_0 t) & <==>^("F.T.") 1 / 2 (delta(f - f_0) + delta(f + f_0)) \
+  ||cal(F)[sin(2 pi f_0 t)]|| = 1 / 2 (delta(f - f_0) + delta(f + f_0)) \
 $
 
-Due to the linearity of Fourier Transform, we know that the amplitudes should be
-twice the height of peaks in the frequency domain. Therefore, we have:
+Due to linearity of Fourier Transform, we have:
 
 $
-  A_1 = 2 X_1 = 4 \
-  A_2 = 2 X_2 = 2
+  ||cal(F)[x(t)]|| &= ||cal(F)[A_1 sin(2 pi f_1 t) + A_2 sin(2 pi f_2 t)]|| \
+  &= A_1 / 2 (delta(f - f_1) + delta(f + f_1)) + A_2 / 2 (delta(f - f_2) + delta(f + f_2)) \
+$
+
+Sampling the function from $0s$ to $5s$ is equivalent to multiplying a gate function with height $1$ and width $5$, that is,
+the Fourier tranform of the two functions is convolved in the frequency domain. Suppose this gate function is $g$, and we have:
+
+$
+  ||cal(F)[g(t)]|| = |5 sinc(5 f)|
+$
+
+Where $5$ is the width of the gate function. From the above conclusion, we can infer that the image of _CTFT_ is the convolution of the two:
+
+$
+  ||cal(F)[x(t)]|| &= lr(||cal(F)[g(t)] * cal(F)[A_1 sin(2 pi f_1 t) + A_2 sin(2 pi f_2 t)]||) \
+  &= norm(5 sinc(5f) * (A_1 / 2 (delta(f - f_1) + delta(f + f_1)) + A_2 / 2 (delta(f - f_2) + delta(f + f_2)))) \ 
+  &= norm(5 / 2 lr((A_1 sinc(5(f - f_1)) + A_1 sinc(5(f + f_1)) + A_2 sinc(5(f - f_2)) + A_2 sinc(5(f + f_2)))))
+$
+
+Therefore, the peak values $X_1, X_2$ is $5 / 2$ times the amplitudes $A_1$ and $A_2$:
+
+$
+  A_1 = 2 / 5 X_1 = 4 / 5 \
+  A_2 = 2 / 5 X_2 = 2 / 5
 $
 
 #align(center,
@@ -123,7 +148,7 @@ $
     align: center,
     [Parameters], [$i = 1$], [$i = 2$],
     $f_i$, [$814"Hz"$], [$803"Hz"$],
-    $A_i$, [4], [2]
+    $A_i$, [$4 / 5$], [$2 / 5$]
   )
 )
 = Continuous-Time Fourier Transform properties
@@ -150,12 +175,12 @@ We can get $g_2 = g(t - D / 2)$ by applying time shifting on $g$. To get $g_2$ i
 
 Using the function `CTFT()` function realized in _1.a_, we can calculate the _CTFT_ of $g_2$ and $g$ respectively. 
 
-By observing the images of module, phase, real part and imaginary part of the two functions, *we can verify the followling properties of time shifting under _CTFT_:*
+By observing the images of Modulus, phase, real part and imaginary part of the two functions, *we can verify the followling properties of time shifting under _CTFT_:*
 
-+ The module remains unchanged.
++ The Modulus remains unchanged.
 + THe phase changes linearly with $omega$, and the distribution of real and imaginary parts changes.
 
-#figure(image("pic/2-1-1.png", width: 80%), caption: [Module of $g$ and $g_2$])
+#figure(image("pic/2-1-1.png", width: 80%), caption: [Modulus of $g$ and $g_2$])
 #figure(image("pic/2-1-2.png", width: 80%), caption: [Phase of $g$ and $g_2$])
 #figure(image("pic/2-1-3.png", width: 80%), caption: [Real part of $g$ and $g_2$])
 #figure(image("pic/2-1-4.png", width: 80%), caption: [Imaginary part of $g$ and $g_2$])
@@ -168,16 +193,16 @@ In the code, we can generate $y(t) = g(t) times cos(4 pi t)$ from $g(t)$. The fi
 
 == Modulation properties of Fourier Tranform <3.e>
 
-To get the module and phase of $y(t)$ and $g(t)$, we can calculte their _CTFT_ like in @3.c.
+To get the Modulus and phase of $y(t)$ and $g(t)$, we can calculte their _CTFT_ like in @3.c.
 
 The modulation property of _CTFT_ gives:
 
 $ G_T_1(t) cos(omega_0 t) <==>^(F.T.) 1 / 2 X[j(omega - omega_0)] +  1/ 2 X[j(omega + omega_0)] $ 
 
-This property can be verified from the figures below, as the module and phase of $g$ is shifted to $omega_0 = 4 pi$ and $-omega_0 = -4pi$ in the frequency domain.
-Note the peak value of module of $y$ is half this value of $g$.
+This property can be verified from the figures below, as the Modulus and phase of $g$ is shifted to $omega_0 = 4 pi$ and $-omega_0 = -4pi$ in the frequency domain.
+Note the peak value of Modulus of $y$ is half this value of $g$.
 
-#figure(image("pic/2-1-6.png", width: 80%), caption: [Module of $y$ and $g$])
+#figure(image("pic/2-1-6.png", width: 80%), caption: [Modulus of $y$ and $g$])
 
 #figure(image("pic/2-1-7.png", width: 80%), caption: [Phase of $y$ and $g$])
 
@@ -216,12 +241,18 @@ The code is in @py4.a.
 
 Using the function implemented in _3.a_, we rendered the images of $G_(w, 1)$ and $G_(w, 2)$ in a Nyquist interval,
 
-#figure(image("pic/2-2-b-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
+#figure(image("pic/2-2-b-1.png", width: 80%), caption: [Modulus of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
 #figure(image("pic/2-2-b-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f$])
-#figure(image("pic/2-2-b-3.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
+#figure(image("pic/2-2-b-3.png", width: 80%), caption: [Modulus of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
 #figure(image("pic/2-2-b-4.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $f / f_s$])
-#figure(image("pic/2-2-b-5.png", width: 80%), caption: [Module of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
+#figure(image("pic/2-2-b-5.png", width: 80%), caption: [Modulus of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
 #figure(image("pic/2-2-b-6.png", width: 80%), caption: [Phase of $G_(w, 1)$ and $G_(w, 2)$ in $w / f_s$])
+
+Explanation for these figures: The modulus figure is a modulus of a $sinc$ function. The envelope of the phase figure is linear because of the time shfiting property of Fourier transform: $ x(t - t_0) <==>^(F.T.) e^(-j omega t_0) X(j omega) $
+
+The $omega$ in the exponential term results in a linear change in phase. 
+
+At the same time, the function shows a jagged up and down step. This is because the $sinc$ function periodically appears postive and negative, causing the phase to be reversed.
 
 == Deduciton of the theoretical _CTFT_ function of $g$ <4.c>
  
@@ -237,9 +268,9 @@ $
 We can plot them in the same figure:
 
 
-#figure(image("pic/2-2-c-1.png", width: 80%), caption: [Module of $G_(w, 1)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-1.png", width: 80%), caption: [Modulus of $G_(w, 1)$ and _CTFT_ of $g$])
 #figure(image("pic/2-2-c-2.png", width: 80%), caption: [Phase of $G_(w, 1)$ and _CTFT_ of $g$])
-#figure(image("pic/2-2-c-3.png", width: 80%), caption: [Module of $G_(w, 2)$ and _CTFT_ of $g$])
+#figure(image("pic/2-2-c-3.png", width: 80%), caption: [Modulus of $G_(w, 2)$ and _CTFT_ of $g$])
 #figure(image("pic/2-2-c-4.png", width: 80%), caption: [Phase of $G_(w, 2)$ and _CTFT_ of $g$])
 
 For $G_(w, 1)$, the peak value at $omega = 0$ is ten times the _CTFT_ of $g$. That's
@@ -270,6 +301,8 @@ of _DTFT_ function, which means the Parseval's formula would be:
 
 $ integral_(-oo)^(+oo) |x(t)|^2 dif t = 1 / (2pi f_s ^ 2) integral_(-w_s / 2)^(+w_s / 2) |X(j omega)|^2 dif omega $. 
 
+Under this formula, the energy in time domain and in frequency domain are both $31.99$, thus the Parseval's formula is validated.
+
 = Windowing effects of DTFT
 
 == _DTFT_ of $g$ with gate sampling function <5.a>
@@ -279,6 +312,10 @@ We can adopt $2 / N$ as factor to scale magnitudes of _DTFT_ function. The figur
 #figure(image("pic/2-3-a-1.png", width: 80%), caption: [Figure and peak values when $L = 50$])
 #figure(image("pic/2-3-a-2.png", width: 80%), caption: [Figure and peak values when $L = 200$])
 #figure(image("pic/2-3-a-3.png", width: 80%), caption: [Figure and peak values when $L = 1000$])
+
+The $f$ here is obtained through continuous trials, that is, manually adjusting
+$f$, using the `dtft_single_point()` function in python to output the corresponding
+_DTFT_ function value to see at which point the function value is the largest. The selected $f$ value is in the `draw_fs` list in the code.
 
 Larger the $L$, the more accurate we can find the right amplitude and frequency.
 
@@ -323,11 +360,11 @@ The figure of $y$ is:
 
 #figure(image("pic/4-a.png", width: 80%), caption: [Figure of $y$])
 
-== Module and phase of $y$'s _DTFT_ <6.b>
+== Modulus and phase of $y$'s _DTFT_ <6.b>
 
 We can use the `DTFT()` function defined in the previous questions. The modulus and phase of _DTFT_ of $y$ in a Nyquist interval are:
 
-#figure(image("pic/4-b-1.png", width: 80%), caption: [Module of _DTFT_ $y$])
+#figure(image("pic/4-b-1.png", width: 80%), caption: [Modulus of _DTFT_ $y$])
 #figure(image("pic/4-b-2.png", width: 80%), caption: [Phase of _DTFT_ of $y$])
 
 The function is continuous in the frequency domain.
@@ -342,7 +379,7 @@ $
 
 Using the new written `dft()` function, we can plot the two functions the same plot:
 
-#figure(image("pic/4-c-1.png", width: 80%), caption: [Module of $y$'s _DFT_ (blue) and _DTFT_ (red)])
+#figure(image("pic/4-c-1.png", width: 80%), caption: [Modulus of $y$'s _DFT_ (blue) and _DTFT_ (red)])
 #figure(image("pic/4-c-2.png", width: 80%), caption: [Phase of $y$'s _DFT_ (blue) and _DTFT_ (red)])
 
 At the sampling points of _DFT_, the function values of the two remain consistant.
@@ -364,7 +401,7 @@ The following figure shows that the inverse _DTFT_ completely matches the origin
 Using `numpy.pad()` function, we can apply zero-padding to $y[n]$.
 To get the _FFT_ of $y$, we can use `numpy.fft.fft()` function. The modulus and phase of _FFT_ of $y$ are:
 
-#figure(image("pic/4-e-1.png", width: 80%), caption: [Module of _FFT_ (N = 16) and _DTFT_ of $y$])
+#figure(image("pic/4-e-1.png", width: 80%), caption: [Modulus of _FFT_ (N = 16) and _DTFT_ of $y$])
 #figure(image("pic/4-e-2.png", width: 80%), caption: [Phase of _FFT_ (N = 16) and _DTFT_ of $y$]) 
 
 It can be seen that the _FFT_ of $y$ is consistent with the _DTFT_ of $y$ on the sampling points.
@@ -490,7 +527,7 @@ def get_mod_pha_real_imag(c):
     return np.abs(c), np.angle(c), c.real, c.imag
 g_4plots = get_mod_pha_real_imag(Gw)
 g2_4plots = get_mod_pha_real_imag(Gw2)
-names = ['Modules', 'Phase', 'Real', 'Imaginary']
+names = ['Modulus', 'Phase', 'Real', 'Imaginary']
 for i in range(4):
     print(f'Gw {names[i]}')
     fig = plt.figure(figsize=(18, 6))
@@ -588,7 +625,7 @@ def dtft_of_func_nyquist(f, s, t, time_interval):
 def get_mod_pha_real_imag(c):
     return np.abs(c), np.angle(c), c.real, c.imag
 
-prop_desc = ['Modules', 'Phase']
+prop_desc = ['Modulus', 'Phase']
 x_axis_desc = ['f', 'f / fs', 'w / fs']
 
 def compress_x_axis(opt, w_vec, omega_sampling):
@@ -602,7 +639,7 @@ def compress_x_axis(opt, w_vec, omega_sampling):
 
 """
 f, f/f2, w/ws
-    module, phase
+    Modulus, phase
         g1, g2
 """
 SAMPLING_T1 = D / 80
@@ -923,7 +960,7 @@ def get_mod_pha_real_imag(c):
 
 w_vec, dtft = dtft_of_func_nyquist(ns, y, 1)
 dtft_plots = get_mod_pha_real_imag(dtft)
-prop_desc = ['Modules', 'Phase']
+prop_desc = ['Modulus', 'Phase']
 
 def plot_mod_phase(x_vec, y_vec, x_name, y_name):
     plots = get_mod_pha_real_imag(y_vec)
