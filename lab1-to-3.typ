@@ -665,13 +665,17 @@ To make the bandwidth of $1"Hz"$, we use the approximation method to analyze the
 
 #figure(image("pic2/t4.c.6.png", width: 50%))
 
-We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply bz by $x / y$. Given $x$ and $y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega = 2 pi times (1"Hz") / (2 f_s) tilde.eq 0.0157 $. Let's now find that condition that $x$ and $y$ should meet:
+We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply `bz` by $x / y$. Given $x$ and $y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega = 2 pi times (1"Hz") / (2 f_s) tilde.eq 0.0157 $
+
+Let's now find that condition that $x$ and $y$ should meet, with all the variable positive real numbers:
 
 $
   q / p x / y = 1 / sqrt(2)
 $
 
-With all the variable positive real numbers. Square both sides:
+ Here $q / p$ stands for the ratio of the distances from $F$ to the zero point and to pole point, $x / y$ stands for the normalization coefficient.
+
+Square both sides:
 
 $
   q^2 / p^2 x^2 / y^2 = 1 / 2
