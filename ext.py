@@ -1,3 +1,11 @@
+"""
+用法：你需要先在 ipynb 代码块的每道题代码最前面添加 # [x.y] 注释，其中 x 为大题号，y 为小题号。
+然后命令行
+
+python ext.py t1.ipynb t2.ipynb t3.ipynb t4.ipynb > 1.txt 
+
+这样就可以把 ipynb 转为 typst 标题加代码块了，转换结果在 1.txt 中
+"""
 import sys
 import nbformat
 
