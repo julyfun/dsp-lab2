@@ -1,6 +1,5 @@
 .vscode
- .DS_Store
- .nvimlog
- *.swp
- 
-
+.DS_Store
+.nvimlog
+*.swp
+*.pdf
