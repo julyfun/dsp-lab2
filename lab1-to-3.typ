@@ -40,6 +40,16 @@ _Source Code_: #link("https://github.com/julyfun/dsp-lab2")
 
 = (Lab1) Signal operations <1>
 
+#let student-number = "No. 52126091008"
+#show figure: it => {
+  let cap = if it.caption != none { it.caption + " - " + student-number } else { student-number }
+  align(center, box[#it.body, #cap])
+}
+
+// #show figure: it => {
+
+// }
+
 Given the parameters $A = 3, B = 4, D = 8$, the three gate functions are defined
 by:
 
@@ -615,21 +625,21 @@ $
        &= (z ^ 2 - 2 cos(w_c) z + 1) / (z ^ 2 - 2 R cos(w_c) z + R ^ 2) \
 $
 
-From this Here $R$ will decide the bandwidth of the filter. Let's plot the bandwidth of $-3"dB"$ of different $R$ from $0.97$ to $1$. How do we get the bandwidth of an $R$? We can simply calculate the frequency responses into a list in python, and find the first frequency and the last frequency that the response is less than $-3"dB"$. The bandwidth is the difference between these two frequencies. Now the bandwidth-$R$ curve is like:
+Here $R$ will decide the bandwidth of the filter. Let's plot the bandwidth of $-3"dB"$ of different $R$ from $0.97$ to $1$. How do we get the bandwidth of an $R$? We can simply calculate the frequency responses into a list in python, and find the first and the last frequency that the response is less than $-3"dB"$. The bandwidth is the difference between these two frequencies. Now the bandwidth-$R$ curve is like:
 
 #figure(image("pic2/t4.a.1.png", width: 80%))
 
-Get the first $R$ in the list that makes the the band-width less than $1.00$, we can get the $R = 0.98383$. Good!
+Find the first $R$ in the list that makes the the band-width less than $1.00$, we can get the $R = 0.98383$. Good!
 
 $
   H(z) &= (z ^ 2 - 2 cos(w_c) z + 1) / (z ^ 2 - 2 R cos(w_c) z + R ^ 2) \
-       &tilde.eq (z ^ 2 - 1.46 z + 1) / (z ^ 2 - 1.43 z + 0.968 ^ 2)
+       &tilde.eq (z ^ 2 - 1.46 z + 1) / (z ^ 2 - 1.43 z + 0.968)
 $
 
 The difference equation:
 
 $
-  y[n] - 1.46 y[n - 1] + 0.968 ^ 2 y[n - 2] = x[n] - 1.46 x[n - 1] + x[n - 2]
+  y[n] - 1.43 y[n - 1] + 0.968 y[n - 2] = x[n] - 1.46 x[n - 1] + x[n - 2]
 $
 
 Now we can get the right az and bz, plot the pole-zero map and the frequency response of the filter:
@@ -639,7 +649,7 @@ Now we can get the right az and bz, plot the pole-zero map and the frequency res
 #figure(image("pic2/t4.a.4.png", width: 80%))
 #figure(image("pic2/t4.a.5.png", width: 80%))
 
-In this figure 👆🏻,we can clearly see that the notch of $-3"dB"$ is between $23.5"Hz"$ and $24.5"Hz"$.
+In this figure, we can clearly see that the notch of $-3"dB"$ is between $23.5"Hz"$ and $24.5"Hz"$.
 
 ==
 
@@ -665,7 +675,7 @@ To make the bandwidth of $1"Hz"$, we use the approximation method to analyze the
 
 #figure(image("pic2/t4.c.6.png", width: 50%))
 
-We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply `bz` by $x / y$. Given $x$ and $y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega = 2 pi times (1"Hz") / (2 f_s) tilde.eq 0.0157 $
+We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply `bz` by $x / y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega = 2 pi times 1 / 2 times 1 / f_s tilde.eq 0.0157 $
 
 Let's now find that condition that $x$ and $y$ should meet, with all the variable positive real numbers:
 
@@ -699,24 +709,24 @@ $
   x = (Delta omega y) / sqrt(2 Delta omega^2 + y^2)
 $
 
-There's now only $1$ DoF: the radius of the zero point (or the pole point, they are limited by the equation above). It should be close to $1$ in order that frequencies away from $f_"peak"$ are not affected (and after normalization, they are elimited).
+There's now only $1$ DoF: the radius of the zero point $y$ (or the pole point, as they are limited by the equation above). It should be close to $1$ in order that frequencies away from $f_"peak"$ are not affected (so that after normalization, they are elimited).
 
 On the other hand, the magnification is $y / x$. Likewise, we deduce that: $ y / x = sqrt(2 + y ^ 2 / w^2) $
 
-The figure of magnification-$y$:
+The figure of magnification(dB)-$y$:
 
 #figure(image("pic2/t4.c.7.png", width: 80%))
-Larger the $y$, larger the magnification. We can set $y = 0.15$ for magnification $y / x tilde.eq 9.65 = 19.7"dB"$. We then have $x tilde.eq 0.0155, R_"zero" = 0.85, R_"pole" tilde.eq 0.9845$, and the transfer function:
+Larger the $y$ is, larger will the magnification be. We can set $y = 0.15$ for magnification $y / x tilde.eq 9.65 = 19.7"dB"$. We then have $x tilde.eq 0.0155, R_"zero" = 0.85, R_"pole" tilde.eq 0.9845$, and the transfer function:
 
 $
-  H(z) &tilde.eq 1 / 9.65 times (z ^ 2 - 1.70 z + 0.722) / (z ^ 2 - 1.97 z + 0.969 ^ 2) \
-       &tilde.eq (0.104 z ^ 2 - 0.130 z + 0.0748) / (z ^ 2 - 1.97 z + 0.969 ^ 2)
+  H(z) &tilde.eq 1 / 9.65 times (z ^ 2 - 1.70 z + 0.722) / (z ^ 2 - 1.97 z + 0.969) \
+       &tilde.eq (0.104 z ^ 2 - 0.130 z + 0.0748) / (z ^ 2 - 1.97 z + 0.969)
 $
 
 The difference equation:
 
 $
-  y[n] - 1.97 y[n - 1] + 0.969 ^ 2 y[n - 2] = 0.104 x[n] - 0.130 x[n - 1] + 0.0748 x[n - 2]
+  y[n] - 1.97 y[n - 1] + 0.969 y[n - 2] = 0.104 x[n] - 0.130 x[n - 1] + 0.0748 x[n - 2]
 $
 
 Plotting the poles and zeros:
