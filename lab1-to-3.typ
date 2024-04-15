@@ -2,6 +2,8 @@
 #set heading(numbering: "1.a.1.")
 #set figure(numbering: "1")
 
+#let student-number = "No. 521260910018"
+
 // 这是注释
 #figure(image("pic/sjtu.png", width: 50%), numbering: none) \ \ \
 
@@ -15,7 +17,7 @@
       //   if x == 0 { right } else { left },
       align: (right, left),
       [Name:], [Junjie Fang],
-      [Student ID:], [521260910018],
+      [Student ID:], [#student-number],
       [Date:], [2024/3/4],
       [Score:], [],
     )
@@ -40,7 +42,6 @@ _Source Code_: #link("https://github.com/julyfun/dsp-lab2")
 
 = (Lab1) Signal operations <1>
 
-#let student-number = "No. 52126091008"
 #show figure: it => {
   let cap = if it.caption != none { it.caption + " - " + student-number } else { student-number }
   align(center, box[#it.body, #cap])
@@ -675,15 +676,15 @@ To make the bandwidth of $1"Hz"$, we use the approximation method to analyze the
 
 #figure(image("pic2/t4.c.6.png", width: 50%))
 
-We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply `bz` by $x / y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega = 2 pi times 1 / 2 times 1 / f_s tilde.eq 0.0157 $
+We consider a tiny part of the unit circle close to the pole. $A B$ is a very small part of the unit circle, so it is approximately a line. At $omega = omega_"peak"$, the magnification is $y / x$ according to the property of a comb filter. To normalize the gain function, we will multiply `bz` by $x / y$. We can deduce that the proper $Delta omega$ that makes that bandwidth $1"Hz"$ is: $ Delta omega_c = 2 pi times 1 / 2 times 1 / f_s tilde.eq 0.0157 $
 
-Let's now find that condition that $x$ and $y$ should meet, with all the variable positive real numbers:
+Let's now find that condition that $x$ and $y$ should meet, with all the variable positive real numbers, so that when $Delta omega = Delta omega_c$, the attenuation is $1 / sqrt(2)$:
 
 $
   q / p x / y = 1 / sqrt(2)
 $
 
- Here $q / p$ stands for the ratio of the distances from $F$ to the zero point and to pole point, $x / y$ stands for the normalization coefficient.
+Here $q / p$ stands for the ratio of the distances from $F$ to the zero point and to pole point, $x / y$ stands for the normalization coefficient.
 
 Square both sides:
 

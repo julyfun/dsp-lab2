@@ -3,3 +3,4 @@
 .nvimlog
 *.swp
 *.pdf
+__pycache__
